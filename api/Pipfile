@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "==1.1.2"
+setuptools = "*"
+wheel = "*"
+pip = "*"
+spacy = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+html5lib = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

@@ -1,0 +1,23 @@
+.leaflet-container {
+
+  left: 0;
+  right: 0;
+  height: 50vh;
+}
+
+.sidenav {
+  height: 100%;  
+  width: 20%;  
+  position: fixed; 
+  z-index: 1; 
+  top: 10vh; 
+  left: 0; 
+  background-color:#7bb3ab; 
+  transition: .5s ease; 
+  overflow-x: hidden; 
+  padding-top: 20px; 
+  display: flex; 
+  flex-direction: 
+  column; 
+  align-items: center;
+}
