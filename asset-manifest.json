@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/BILT-2022-Session1.3/static/css/main.428f46e9.css",
+    "main.js": "/BILT-2022-Session1.3/static/js/main.7a05278e.js",
+    "static/media/ideally32-white.svg": "/BILT-2022-Session1.3/static/media/ideally32-white.69bebdca5718579664e51da5505ea36e.svg",
+    "index.html": "/BILT-2022-Session1.3/index.html",
+    "main.428f46e9.css.map": "/BILT-2022-Session1.3/static/css/main.428f46e9.css.map",
+    "main.7a05278e.js.map": "/BILT-2022-Session1.3/static/js/main.7a05278e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.428f46e9.css",
+    "static/js/main.7a05278e.js"
+  ]
+}
