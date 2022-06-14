@@ -1,0 +1,43 @@
+doc = nlp(setback_text)
+
+
+matcher = DependencyMatcher(nlp.vocab)
+
+pattern = [
+    {
+        "RIGHT_ID": "anchor_distance",
+        "RIGHT_ATTRS": {"POS": "NUM"}
+    },
+    {
+        "LEFT_ID": "anchor_distance",
+        "REL_OP": "<<",
+        "RIGHT_ID": "setback_constraint",
+        "RIGHT_ATTRS": {"POS": {"IN" : ["AUX", "VERB"]}}
+    },
+    {
+        "LEFT_ID": "setback_constraint",
+        "REL_OP": ">>",
+        "RIGHT_ID": "setback_type",
+        "RIGHT_ATTRS": {"POS": "ADJ"}
+    },
+    {
+        "LEFT_ID": "setback_constraint",
+        "REL_OP": ">>",
+        "RIGHT_ID": "setback_condition",
+        "RIGHT_ATTRS": {"DEP": "pobj"}
+    },
+    {
+        "LEFT_ID": "setback_condition",
+        "REL_OP": ">>",
+        "RIGHT_ID": "setback_condition_detail",
+        "RIGHT_ATTRS": {"DEP": "compound"}
+    }
+]
+#Match for setbacks
+matcher = DependencyMatcher(nlp.vocab)
+matcher.add("SETBACKS", [pattern])
+matches = matcher(doc)
+matched = []
+match_id, token_ids = matches[0]
+for i in range(len(token_ids)):
+    matched.append(pattern[i]["RIGHT_ID"] + ":", doc[token_ids[i]].text)

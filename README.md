@@ -5,7 +5,6 @@ Demo of a web service for the public & AEC professionals to visualize regulatory
 - [Concept](#concept)
 - [Dependancies](#dependancies)
 - [Installation](#installation)
-- [UI Images](#ui-images)
 - [Future Development](#future-development)
 - [Key Contributors](#key-contributors)
 
@@ -24,12 +23,20 @@ This repository makes use of the following:
 - The use of [spaCy](https://spacy.io/) for its industrial strength NLP processing
 - And last but not least, [flask](https://flask.palletsprojects.com/en/2.1.x/) which the api is built on
 
-### Installation
+### Installation Frontend
 
-1. run `yarn start`
-2. Development server will start
+1. First navigate to /frontend folder
+2. run `yarn install` to install dependancies
+3. then run `yarn start`
+4. Frontend Development server will start
 
-#### UI Images
+### Installation Backend
+
+1. First navigate to /api folder
+2. First run `pipenv shell`
+2. then create an env variable `$env:FLASK_APP = ".\main.py"`
+4. then run `flask run`
+2. API Development server will start
 
 ## Future Development
 

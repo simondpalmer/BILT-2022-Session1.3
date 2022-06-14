@@ -7,7 +7,9 @@ interface Props{
     parcelname?: any
 }
 
+
 export const ParcelDetails: React.FC<Props> = ( details ) => {
+
     return (
         <div>
             <h2>{details.parcelname}</h2>
@@ -17,7 +19,7 @@ export const ParcelDetails: React.FC<Props> = ( details ) => {
             </div>
             <h3>ZONING DATA</h3>
             <div className="zoningdetails">
-            {parse(details.details)}
+            {details.details}
             </div>
         </div>   
     )

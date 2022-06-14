@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+
 import { FeatureLayer } from 'react-esri-leaflet';
 
 interface LayerDetails {
@@ -18,37 +18,21 @@ const Layers = (props:LayerDetails) => {
           fillColor: "null",
           fillOpacity: 0,
           color: "black",
-          weight: 0
+          weight: .2
         }
       }}
       eventHandlers={{
-        // loading: () => console.log('featurelayer loading'),
-        // load: () => {
-        //   console.log('sb featurelayer loaded');
-        //   if (props.reference && props.reference.current) {
-        //     props.reference.current.metadata((error: any, data: any) => {
-        //       console.log('sb featurelayer metadata:', data);
-        //       console.log('sb featurelayer error:', error);
-        //     });
-        //   }
-        // },
         click: (e: any) => {
-          // console.log(e.layer.feature.properties)
-          // var shape = e.layer.feature.getLatLngs()
-          // console.log(e.layer._latlngs)
-          props.parcelcoords(e.layer._latlngs)
-          // console.log(e.layer.feature.properties)
+          console.log(props.parcelcoords)
+          if(e.layer._latlngs) {
+            props.parcelcoords(e.layer._latlngs)
+          }
+          console.log(props.parcelcoords)
           var parcelinfo = ''
           for (let [key, value] of Object.entries(e.layer.feature.properties)) {
             parcelinfo += `<br>${key}</b>:${value}<br>`
           }
-          // console.log(parcelinfo)
           props.parcelinfo(parcelinfo)
-          // for(i in e.layer._latlngs) {
-          //   var collection = [];
-          //   collection.push(e.layer._latlngs[i])
-          //   setParcel(collection)
-          // }
         }
       }}
       />

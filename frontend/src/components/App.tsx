@@ -3,11 +3,9 @@ import '../css/App.css';
 import Webmap from './Webmap';
 import Header from './Header';
 import { ParcelDetails } from './ParcelDetails';
-import { Container, Box, Stack } from '@mui/material';
-import Grid from "@material-ui/core";
-import { Layout } from './Layout';
-
-const API_URL = process.env.API_URL || 'http://127.0.0.1:3000'
+import { SetbackDetails } from './SetbackDetails';
+import { Container, Stack } from '@mui/material';
+import Button from '@mui/material/Button';
 
 interface Props {}
 
@@ -15,27 +13,29 @@ const App:React.FC = (props: Props) => {
   //const [apikey, setApikey] = useState(process.env.ARCGIS_API_KEY);
   const [featCollect, setFeatCollect] = useState<any>("Zoning Info")
   const [parcelCollect, setParcelCollect] = useState<any>("Parcel Info")
-  const [addrCollect, setAddrCollect] = useState<any>("Address")
+  const [addrCollect, setAddrCollect] = useState<any>("PROPERTY INFO")
   const [constraints, setConstraints] = useState<any>([])
-  const [featCollected, setFeatCollected] = useState<number>(0)
+  const [dependancies, setDependancies] = useState<any>("")
+  const [viewPropertyInfo, setViewPropertyInfo ] = useState<boolean>(false);
+  const [viewSetbackInfo, setSetbackInfo ] = useState<boolean>(false);
+  const [viewSpinner, setViewSpinner ] = useState<boolean>(false);
 
   const handleReportSubmit = (e:any) => {
     e.preventDefault();
-    fetch('${API_URL}/new-report?query=${address}')
+    setViewSpinner(true);
+    fetch(`/api/new-report?query=${featCollect}`)
     .then((res) => res.json())
     .then((data) => {
-      setConstraints([{address: constraints }])
+      setViewSpinner(false)
+      console.log(data.results)
+      setConstraints(data.results[0])
+      setDependancies(data.results[1])
+      setSetbackInfo(true)
     })
     .catch((err) => {
       console.log(err);
     })
   }
-
-  // useEffect(() => {
-  //   fetch('/new-report').then(
-  //     response => response.json()
-  //   ).then(data => setContraints(data))
-  // }, [featCollect])
 
   const updateZoning = (zoning: any) => {
     setFeatCollect(zoning)
@@ -43,6 +43,7 @@ const App:React.FC = (props: Props) => {
   
   const updateParcel = (parcel: any) => {
     setParcelCollect(parcel)
+    setViewPropertyInfo(true)
   }
 
   const updateAddress = (adress: any) => {
@@ -53,13 +54,22 @@ const App:React.FC = (props: Props) => {
     console.log(featCollect)
   }, [featCollect])
 
+  useEffect(() => {
+    console.log(constraints)
+  }, [constraints])
+
   return (
     <React.Fragment>
       <Container maxWidth="lg">
         <Header />
         <Stack spacing={5} padding={1}>
           <Webmap parcelname={updateAddress} details={updateZoning} parcel={updateParcel}/>
-          <ParcelDetails parcelname={addrCollect} details={featCollect} parcel={parcelCollect} />
+          {viewPropertyInfo && <Button variant="outlined" onClick={handleReportSubmit}>Generate Report</Button>}
+          {viewSpinner && <h3>Loading....</h3>}
+          {!viewSpinner && viewSetbackInfo && <h3>Scroll to the bottom for the Report!</h3>}
+          {!viewPropertyInfo && <h3>Click on a property to display property information. Once done click on "Generate Report"!</h3>}
+          {viewPropertyInfo && <ParcelDetails parcelname={addrCollect} details={featCollect} parcel={parcelCollect}/>}
+          {viewSetbackInfo && <SetbackDetails setbacks={constraints} dep_map={dependancies}/>}
         </Stack>
       </Container>
     </React.Fragment> 
